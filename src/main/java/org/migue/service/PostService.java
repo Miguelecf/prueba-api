@@ -2,6 +2,7 @@ package org.migue.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.migue.client.CommentClient;
 import org.migue.client.UserClient;
@@ -18,7 +19,6 @@ public class PostService {
 
     @RestClient
     PostClient postClient;
-
 
     @RestClient
     CommentClient commentClient;
@@ -46,6 +46,10 @@ public class PostService {
 
             return postResponse;
         }).toList();
+    }
+
+    public Response deletePost(Long postId){
+        return postClient.deletePost(postId);
     }
 
 
