@@ -31,7 +31,6 @@ public List<PostResponse> getAllPosts(
             authorId, search, limit, offset);
 
     try {
-        // Validaciones básicas de entrada
         if (authorId != null && authorId <= 0) {
             LOG.warn("authorId inválido");
             throw new jakarta.ws.rs.BadRequestException("authorId inválido");
@@ -45,7 +44,6 @@ public List<PostResponse> getAllPosts(
             throw new jakarta.ws.rs.BadRequestException("offset no puede ser negativo");
         }
 
-        // Limpieza simple del paramámetro de búsqueda
         if (search != null) {
             search = search.trim();
             if (search.length() > 200) {
@@ -56,6 +54,11 @@ public List<PostResponse> getAllPosts(
             search = search.replaceAll("[<>\\p{Cntrl}]", "");
             if (search.isEmpty()) {
                 search = null;
+            }
+            // Podria ser una mejora futura, que filtre con los parametros.
+            if (authorId != null || search != null) {
+                LOG.warn("Parámetros de filtrado recibidos pero no implementados: authorId=" +
+                        authorId + ", search=" + search);
             }
         }
 
